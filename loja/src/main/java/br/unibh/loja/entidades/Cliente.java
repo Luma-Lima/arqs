@@ -1,17 +1,23 @@
 package br.unibh.loja.entidades;
 
 import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Column;
-import javax.persistence.Version;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 
 
@@ -26,32 +32,53 @@ public class Cliente {
 	@GeneratedValue ( strategy = GenerationType . IDENTITY )
 	private Long id;
 	
+	@NotBlank
+	@NotNull
+	@Size(min=3, max=100)
+	@Pattern(regexp="[A-zÀ-ú.´ ' ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
 	@Column (length = 100, nullable = false)
 	private String nome;
 	
+	@NotBlank
+	@NotNull
+	@Size(min=3, max=100)
+	@Pattern(regexp="[A-Za-z0-9]", message=" O login do usuário não pode conter os caracteres especiais, acentos ou espaços")
 	@Column (length = 15, nullable = false)
 	private String login;
 	
+	@NotBlank
+	@NotNull
+	@Size(min=3, max=100)
+	@Pattern(regexp="[A-zÀ-ú.A-Za-z0-9 -/*&%$#@! ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
 	@Column (length = 100, nullable = false)
 	private String senha;
 	
+	
+	@NotBlank
+	@Size(min=3, max=100)
+	@Pattern(regexp="[A-zÀ-ú ]*", message="Caracteres permitidos: letras, espaços")
 	@Column (length = 100, nullable = false)
 	private String perfil;
 	
+	@Pattern(regexp="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]", message="CPF deve seguir formato: 99999999999")
 	@Column (length = 11, columnDefinition = "char", nullable = false)
 	private String cpf;
 	
+	@Pattern(regexp = "[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]", message = "Telefone inválido!")
 	@Column (length = 14, columnDefinition = "char", nullable = true)
 	private String telefone;
 	
+	@Pattern(regexp = ".+@.+\\.[a-z]+", message = "{invalid.mail}")
 	@Column (length = 100, nullable = true)
 	private String email;
 	
+	@NotNull
+	@Past
 	@Temporal(TemporalType.DATE)
 	@Column (name = "data_nascimento", nullable = false)
 	private Date dataNascimento;
 	
-	
+	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="data_cadastro", nullable=false)
 	private Date dataCadastro;
