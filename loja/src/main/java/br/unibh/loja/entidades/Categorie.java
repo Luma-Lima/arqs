@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,73 +18,77 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.br.CPF;
+
+
+
 
 @Entity
-@Table(name = "tb_cliente", uniqueConstraints = { @UniqueConstraint(columnNames = { "cpf" }),
-		@UniqueConstraint(columnNames = { "login" }) })
-@NamedQueries({
-	@NamedQuery(name = "Cliente.findByName", query = "select o from Cliente o where o.nome like :nome")})
-
+@Table ( name = "tb_cliente", uniqueConstraints = {
+	    @UniqueConstraint(columnNames = { "cpf"}),
+	    @UniqueConstraint(columnNames = { "login"})})
 public class Cliente {
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue ( strategy = GenerationType . IDENTITY )
 	private Long id;
-
-	@NotBlank
-	@Size(min = 3, max = 100)
-	@Pattern(regexp = "[A-zÀ-ú.´ ' ]*", message = "Caracteres permitidos: letras, espaços, ponto e aspas simples")
-	@Column(length = 100, nullable = false)
-	private String nome;
-
-	@NotBlank
-	@Size(min = 4, max = 100)
-	@Pattern(regexp = "[A-z0-9]*", message = " O login do usuário não pode conter os caracteres especiais, acentos ou espaços")
-	@Column(length = 15, nullable = false)
-	private String login;
-
+	
 	@NotBlank
 	@NotNull
-	@Size(min = 3, max = 100)
-	@Pattern(regexp = "[A-zÀ-ú.A-Za-z0-9 -/*&%$#@! ]*", message = "Caracteres permitidos: letras, espaços, ponto e aspas simples")
-	@Column(length = 100, nullable = false)
-	private String senha;
-
+	@Size(min=3, max=100)
+	@Pattern(regexp="[A-zÀ-ú.´ ' ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
+	@Column (length = 100, nullable = false)
+	private String nome;
+	
 	@NotBlank
-	@Size(min = 3, max = 100)
-	@Pattern(regexp = "[A-zÀ-ú ]*", message = "Caracteres permitidos: letras, espaços")
-	@Column(length = 100, nullable = false)
+	@NotNull
+	@Size(min=3, max=100)
+	@Pattern(regexp="[A-Za-z0-9]", message=" O login do usuário não pode conter os caracteres especiais, acentos ou espaços")
+	@Column (length = 15, nullable = false)
+	private String login;
+	
+	@NotBlank
+	@NotNull
+	@Size(min=3, max=100)
+	@Pattern(regexp="[A-zÀ-ú.A-Za-z0-9 -/*&%$#@! ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
+	@Column (length = 100, nullable = false)
+	private String senha;
+	
+	
+	@NotBlank
+	@Size(min=3, max=100)
+	@Pattern(regexp="[A-zÀ-ú ]*", message="Caracteres permitidos: letras, espaços")
+	@Column (length = 100, nullable = false)
 	private String perfil;
-
-	@CPF
-	@Column(columnDefinition = "char(11)", nullable = false)
+	
+	@Pattern(regexp="[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]", message="CPF deve seguir formato: 99999999999")
+	@Column (length = 11, columnDefinition = "char", nullable = false)
 	private String cpf;
-
-	@Pattern(regexp = "\\(\\d{2}\\)\\d{0,1}\\d{4}-\\d{4}", message = "Telefone inválido!")
-	@Column(columnDefinition = "char(14)", nullable = true)
+	
+	@Pattern(regexp = "[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]", message = "Telefone inválido!")
+	@Column (length = 14, columnDefinition = "char", nullable = true)
 	private String telefone;
-
+	
 	@Pattern(regexp = ".+@.+\\.[a-z]+", message = "{invalid.mail}")
-	@Column(length = 100, nullable = true)
+	@Column (length = 100, nullable = true)
 	private String email;
-
+	
 	@NotNull
 	@Past
 	@Temporal(TemporalType.DATE)
-	@Column(name = "data_nascimento", nullable = false)
+	@Column (name = "data_nascimento", nullable = false)
 	private Date dataNascimento;
-
+	
 	@NotNull
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "data_cadastro", nullable = false)
+	@Column(name="data_cadastro", nullable=false)
 	private Date dataCadastro;
-
+	
 	@Version
 	private Long version;
-
-	// Construtores
-
+	
+	
+	//Construtores
+	
 	public Cliente(Long id, String nome, String login, String senha, String perfil, String cpf, String telefone,
 			String email, Date dataNascimento, Date dataCadastro) {
 		super();
@@ -106,7 +108,9 @@ public class Cliente {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	
+	
 	// Metodos utilitarios
 
 	@Override
@@ -194,8 +198,11 @@ public class Cliente {
 				+ ", cpf=" + cpf + ", telefone=" + telefone + ", email=" + email + ", dataNascimento=" + dataNascimento
 				+ ", dataCadastro=" + dataCadastro + "]";
 	}
-
-	// Obtém conjuntos e
+	
+	
+	
+// 	Obtém conjuntos e
+	
 
 	public Long getId() {
 		return id;
@@ -276,13 +283,13 @@ public class Cliente {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
-
 	public Long getVersion() {
 		return version;
 	}
-
 	public void setVersion(Long id) {
 		this.version = version;
 	}
+	
+	
 
 }

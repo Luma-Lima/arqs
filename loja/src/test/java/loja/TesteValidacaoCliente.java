@@ -35,7 +35,7 @@ public class TesteValidacaoCliente {
 	@Test
 	public void testeValidacaoCliente1() {
 		Date dt = new Date(10/10/2007);
-		Cliente cl = new Cliente(3L, "Luma", "LumaL", "lumali", "LumaLi", "12345678900", "3111111111",
+		Cliente cl = new Cliente(3L, "Luma", "LumaL", "lumali", "LumaLi", "08776697673", "(31) 1111-1111",
 				"abcd@efgh.com.br", dt, dt);
 		System.out.println(cl);
 		Set<ConstraintViolation<Cliente>> constraintViolations = validator.validate(cl);
@@ -49,7 +49,7 @@ public class TesteValidacaoCliente {
 	@Test
 	public void testeValidacaoCliente2() {
 		Date dt = new Date(10/10/2007);
-		Cliente cl = new Cliente(3L, "Luma", "LumaL", "lumali", "LumaLi", "12345678900", "3111111111",
+		Cliente cl = new Cliente(3L, "Luma", "LumaL", "lumali", "LumaLi", "08776697673", "(31) 1111-1111",
 				"abcd@efgh.com.br", dt, dt);
 		System.out.println(cl);
 		Categoria cat = new Categoria( 1L , "Elétrico");
