@@ -47,7 +47,6 @@ public class TesteServicoCliente {
 	@Test
 	public void teste01_inserirSemErro() throws Exception {
 		log.info("============> Iniciando o teste " + Thread.currentThread().getStackTrace()[1].getMethodName());
-		Date dt = new Date(10/10/2007);
 		Cliente o = new Cliente(3L, "Luma", "luma", "1234", "Standard", "08776697673", "(31)1111-1111",
 				"abcd@efgh.com.br", new Date(), new Date());
 		sc.insert(o);

@@ -28,7 +28,7 @@ public class Categoria {
 
 	@NotBlank
 	@Size(min = 3, max = 100)
-	@Pattern(regexp = "[A-zÀ-ú.´ ' ]*", message = "Caracteres permitidos: letras, espaços, ponto e aspas simples")
+	@Pattern(regexp = "[A-zÀ-ú.´']*", message = "Caracteres permitidos: letras, espaços, ponto e aspas simples")
 	@Column(length = 100, nullable = false)
 	private String descricao;
 
